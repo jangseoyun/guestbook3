@@ -33,7 +33,7 @@
 				<td>${personVo.company}</td>
 			</tr>
 			<tr>
-				<td><a href="">수정</a></td>
+				<td><a href="/phonebook3/phone/updateForm?personId=${personVo.personId}">수정</a></td>
 				<td><a href="/phonebook3/phone/delete?personId=${personVo.personId}">삭제</a></td>
 			</tr>
 		</table>

@@ -73,12 +73,30 @@ public class PhoneController {
 		
 	}
 	
-	public String update() {
+	@RequestMapping(value="/updateForm", method = {RequestMethod.GET, RequestMethod.POST} )
+	public String updateForm(@RequestParam("personId") int personId, Model model) {
 		
-		System.out.println("phone/update");
+		System.out.println("phone/updateForm");
 		
+		PhoneDao phoneDao = new PhoneDao();
+		PersonVo personVo = phoneDao.getPerson(personId);
 		
-		return "";
+		model.addAttribute("personVo", personVo);
+		
+		return "/WEB-INF/views/updateForm.jsp";
+	}
+	
+	@RequestMapping(value="/update", method = {RequestMethod.GET, RequestMethod.POST})
+	public String update(@ModelAttribute PersonVo personVo) {
+		
+		System.out.println("/phone/update");
+		
+		PhoneDao phoneDao = new PhoneDao();
+		phoneDao.personUpdate(personVo);
+		
+		System.out.println("update : " +personVo);
+		
+		return "redirect:/phone/list";
 	}
 	
 	/*
