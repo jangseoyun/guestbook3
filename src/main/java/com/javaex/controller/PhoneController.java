@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +27,7 @@ public class PhoneController {
 		
 		System.out.println("phone/writeForm");
 		//포워드할 주소
-		return "/WEB-INF/views/writeForm.jsp";
+		return "writeForm";
 	}
 	
 	@RequestMapping(value="/write", method = {RequestMethod.GET,RequestMethod.POST})
@@ -58,7 +59,7 @@ public class PhoneController {
 		model.addAttribute("personList", personList);
 		
 		//jsp정보를 리턴한다(view)
-		return "/WEB-INF/views/list.jsp";
+		return "list";
 	}
 	
 	@RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST})
@@ -83,7 +84,7 @@ public class PhoneController {
 		
 		model.addAttribute("personVo", personVo);
 		
-		return "/WEB-INF/views/updateForm.jsp";
+		return "updateForm";
 	}
 	
 	@RequestMapping(value="/update", method = {RequestMethod.GET, RequestMethod.POST})
@@ -97,6 +98,44 @@ public class PhoneController {
 		System.out.println("update : " +personVo);
 		
 		return "redirect:/phone/list";
+	}
+	
+	@RequestMapping(value="/test", method = {RequestMethod.GET, RequestMethod.POST})
+	public String test(@RequestParam(value="name") String name, 
+						@RequestParam(value="age") int age) {
+		
+		System.out.println(name);
+		System.out.println(age);
+		
+		return "";
+	}
+	
+	//파라미터 
+	@RequestMapping(value="/view", method = {RequestMethod.GET, RequestMethod.POST})
+	public String view(@RequestParam(value="no") int no) {
+		
+		System.out.println(no +"번글 가져오기");
+		
+		return "";
+	}
+	
+	//PathVariable -> 파라미터가 아니다. {}위치는 상관없음
+	@RequestMapping(value="/view/{no}", method = {RequestMethod.GET, RequestMethod.POST})
+	public String viewNo(@PathVariable("no") int no) {
+		
+		System.out.println(no +"번글 가져오기");
+		
+		return "";
+	}
+	
+	//네이버 블로그 
+	//localhost:8088/phonebook3/phone/aaa
+	@RequestMapping(value="/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+	public String blog(@PathVariable("id") String id) {
+		
+		System.out.println(id + "님의 블로그 가져오기");
+		
+		return "";
 	}
 	
 	/*
